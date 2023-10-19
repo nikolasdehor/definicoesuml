@@ -1,0 +1,26 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[Knuth 1984]{knuth:1984}
+\abntrefinfo{Knuth}{KNUTH}{1984}
+{KNUTH, D.~E. Literate programming.
+\textbf{The Computer Journal}, Oxford University Press, v.~27, n.~2, p.
+  97--111, 1984.}
+
+\bibitem[Knuth 1986]{texbook}
+\abntrefinfo{Knuth}{KNUTH}{1986}
+{KNUTH, D.~E. \textbf{The {\TeX} Book}. [S.l.]: Addison-Wesley Professional,
+  1986.}
+
+\bibitem[Lesk e Kernighan 1977]{lesk:1977}
+\abntrefinfo{Lesk e Kernighan}{LESK; KERNIGHAN}{1977}
+{LESK, M.; KERNIGHAN, B. Computer typesetting of technical journals on {UNIX}.
+  In:  \textbf{Proceedings of American Federation of Information Processing
+  Societies: 1977 National Computer Conference}. Dallas, Texas: [s.n.], 1977.
+  p. 879--888.}
+
+\end{thebibliography}
