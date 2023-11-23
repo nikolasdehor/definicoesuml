@@ -1,0 +1,21 @@
+Cidade
+===========================
+- id: Integer
+- nome: String
+===========================
++ inserir(): boolean
++ selecionar(): boolean
+===========================
+
+Pessoa
+===========================
+- id: Integer
+- nome: String
+- telefone: String
+- sexo: char
+- cidade: Cidade
+===========================
++ inserir(): boolean
++ alterar(): boolean
++ excluir(): boolean
+===========================
