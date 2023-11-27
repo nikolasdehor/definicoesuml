@@ -65,9 +65,3 @@ public class Pessoa {
     public boolean excluir(){}
 }
 ```
-Após toda a criação do gerador.py
-Para executar o gerador, execute: "python gerador.py definicao.txt" sem aspas
-
-O gerador.py é um script Python que utiliza a biblioteca re para criar um gerador de código Java.
-Ele lê as linhas da definição de classes (definida no arquivo definicao.txt) e gera os métodos de inserir, alterar e excluir para as classes.
-O gerador.py é capaz de gerar classes Java a partir de um arquivo de definição (.txt) de classes.
