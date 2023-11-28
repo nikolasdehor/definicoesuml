@@ -1,41 +1,56 @@
-import sys
+import re
+
+def parse_definition(file_path):
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    class_definitions = re.split(r'\n(?=\w)', content)
+
+    classes = []
+    for class_definition in class_definitions:
+        lines = class_definition.strip().split('\n')
+        class_name = lines[0].strip()
+        attributes = []
+        methods = []
+
+        for line in lines[2:]:
+            line = line.strip()
+            if line:
+                if line.startswith(('+', '-')):
+                    method_signature = line[1:].strip()
+                    access_modifier = 'public' if line.startswith('+') else 'private'
+                    methods.append({'access_modifier': access_modifier, 'signature': method_signature})
+                else:
+                    attribute_declaration = line.split(':')
+                    if len(attribute_declaration) == 2:
+                        attribute_name = attribute_declaration[0].strip()
+                        attribute_type = attribute_declaration[1].strip()
+                        attributes.append({'name': attribute_name, 'type': attribute_type})
+
+        classes.append({'name': class_name, 'attributes': attributes, 'methods': methods})
+
+    return classes
+
+def generate_code(classes):
+    code = ""
+    for class_info in classes:
+        code += f"public class {class_info['name']} {{\n"
+
+        for attribute in class_info['attributes']:
+            code += f"    private {attribute['type']} {attribute['name']};\n"
+
+        for method in class_info['methods']:
+            code += f"    {method['access_modifier']} {method['signature']} {{}}\n"
+
+        code += "}\n\n"
+
+    return code
 
 def main():
-    # Verifica se a quantidade de argumentos é exatamente 2 (nome do script + arquivo de definição)
-    if len(sys.argv) != 2:
-        print("Uso: python gerador.py arquivo_de_definicao.txt")
-        return
+    file_path = 'definicao.txt'
+    classes = parse_definition(file_path)
+    generated_code = generate_code(classes)
+    print(generated_code)
 
-    # Armazena o nome do arquivo de definição passado como argumento
-    arquivo = sys.argv[1]
-
-    # Abre o arquivo de definição e lê todas as suas linhas
-    with open(arquivo, 'r') as f:
-        linhas = f.readlines()
-
-    # Inicializa a variável que conterá o código Java gerado
-    codigo = ''
-    
-    # Processa cada linha do arquivo de definição
-    for linha in linhas:
-        # Para linhas que começam com '+', gera um método público vazio
-        if linha.startswith('+'):
-            codigo += '    public {} {{\n    }}\n\n'.format(linha.strip())
-        # Para linhas que começam com '-', gera um atributo privado
-        elif linha.startswith('-'):
-            codigo += '    private {};\n'.format(linha.strip().replace('-', ''))
-        # Para linhas que começam com '=', inicia uma nova classe, exceto se for apenas uma linha de separação
-        elif linha.startswith('='):
-            if not linha.startswith('==========================='):
-                codigo += '\n}\n\npublic class {{\n'.format(linha.strip().replace('=', ''))
-
-    # Escreve o código Java gerado em um arquivo
-    with open('codigo_gerado.java', 'w') as f:
-        f.write(codigo)
-
-    # Imprime uma mensagem indicando que o código foi gerado com sucesso
-    print("Código gerado com sucesso!")
-
-# Verifica se o script está sendo executado diretamente
 if __name__ == "__main__":
     main()
